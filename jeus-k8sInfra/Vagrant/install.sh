@@ -4,5 +4,8 @@ export DESIRED_VERSION=v3.2.1; /root/Jeus-cloudes/jeus-k8s-cloud/helm/helm-insta
 
 #
 helm repo add edu https://iac-source.github.io/helm-charts
-
+#
 helm repo update
+
+# install docker registry
+sh /root/Jeus-cloudes/docker/create-registry.sh
