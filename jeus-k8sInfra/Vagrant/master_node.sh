@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# install maven
+yum install maven -y
+
 # init kubernetes 
 kubeadm init --token 123456.1234567890123456 --token-ttl 0 \
 --pod-network-cidr=172.16.0.0/16 --apiserver-advertise-address=192.168.2.10
