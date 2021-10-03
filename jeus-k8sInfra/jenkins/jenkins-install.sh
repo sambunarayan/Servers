@@ -2,7 +2,7 @@
 jkopt1="--sessionTimeout=1440"
 jkopt2="--sessionEviction=86400"
 jvopt1="-Duser.timezone=Asia/Tokyo"
-jvopt2="-Dcasc.jenkins.config=https://raw.githubusercontent.com/sambunarayan/Jeus-cloudes/main/jeus-k8s-cloud/jenkins/jenkins-config.yaml"
+jvopt2="-Dcasc.jenkins.config=https://raw.githubusercontent.com/sambunarayan/Servers/main/jeus-k8sInfra/jenkins/jenkins-config.yaml"
 
 helm install jenkins edu/jenkins \
 --set persistence.existingClaim=jenkins \
