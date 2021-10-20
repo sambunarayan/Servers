@@ -15,9 +15,9 @@ systemctl enable --now docker
 yum install kubectl-$1 kubelet-$1 kubeadm-$1 -y
 systemctl enable --now kubelet
 
-# git clone Jeus-cloudes.git 
+# git clone Servers.git 
 if [ $2 = 'Main' ]; then
-  git clone https://github.com/sambunarayan/Jeus-cloudes.git
-  mv /home/vagrant/Jeus-cloudes $HOME
-  find $HOME/Jeus-cloudes/ -regex ".*\.\(sh\)" -exec chmod 700 {} \;
+  git clone https://github.com/sambunarayan/Servers.git
+  mv /home/vagrant/Servers $HOME
+  find $HOME/jeus-k8sInfra/* -regex ".*\.\(sh\)" -exec chmod 700 {} \;
 fi
