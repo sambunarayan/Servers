@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+BASE_DIR=~/Servers/jeus-k8sInfra/grafana
+
+# Change permission
+chmod 755 $BASE_DIR/*
 
 # check helm command
 echo "[Step 1/4] Task [Check helm status]"
@@ -21,7 +25,7 @@ echo "[Step 2/4] ok"
 nfsdir=/nfs_shared/grafana
 echo "[Step 3/4] Task [Create NFS directory for grafana]"
 if [ ! -e "$nfsdir"  ]; then
-  ~/Servers/jeus-k8sInfra/grafana/nfs-exporter.sh grafana
+  $BASE_DIR/nfs-exporter.sh grafana
   chown 1000:1000 $nfsdir
   echo "$nfsdir created"
   echo "[Step 3/4] Successfully completed"
@@ -34,7 +38,7 @@ fi
 echo "[Step 4/4] Task [Create PV,PVC for grafana]"
 pvc=$(kubectl get pvc grafana -o jsonpath={.metadata.name} 2> /dev/null)
 if [ "$pvc" == "" ]; then
-  kubectl apply -f ~/Servers/jeus-k8sInfra/grafana/grafana-volume.yaml
+  kubectl apply -f $BASE_DIR/grafana-volume.yaml
   echo "[Step 4/4] Successfully completed"
 else
   echo "[Step 4/4] failed: grafana pv,pvc already exist"
