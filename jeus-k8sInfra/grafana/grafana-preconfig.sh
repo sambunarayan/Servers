@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-BASE_DIR=$BASE_DIR
+BASE_DIR=~/Servers/jeus-k8sInfra/grafana
 
 # Change permission
 chmod 755 $BASE_DIR/*
