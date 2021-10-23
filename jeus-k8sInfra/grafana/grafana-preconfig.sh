@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Base url of grafana installation files.
 BASE_DIR=~/Servers/jeus-k8sInfra/grafana
 
 # Change permission
