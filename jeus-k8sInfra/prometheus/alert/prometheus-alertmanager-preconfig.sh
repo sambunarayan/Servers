@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Base url of grafana installation files.
-BASE_DIR=~/Servers/jeus-k8sInfra/grafana
+BASE_URL=~/Servers/jeus-k8sInfra/prometheus/alert
+nfsdir=/nfs_shared/prometheus/alertmanager
 
-# Change permission
-chmod 755 $BASE_DIR/*
+chmod 777 $BASE_URL/*.sh
 
 # check helm command
 echo "[Step 1/4] Task [Check helm status]"
@@ -17,18 +16,16 @@ echo "[Step 1/4] ok"
 echo "[Step 2/4] Task [Check MetalLB status]"
 namespace=$(kubectl get namespace metallb-system -o jsonpath={.metadata.name} 2> /dev/null)
 if [ "$namespace" == "" ]; then
-  echo "[Step 2/4] metallb not found" 
+  echo "[Step 2/4] metallb not found"
   exit 1
 fi
 echo "[Step 2/4] ok"
 
 # create nfs directory & change owner
-nfsdir=/nfs_shared/grafana
-echo "[Step 3/4] Task [Create NFS directory for grafana]"
+echo "[Step 3/4] Task [Create NFS directory for alertmanager]"
 if [ ! -e "$nfsdir"  ]; then
-  $BASE_DIR/nfs-exporter.sh grafana
+  $BASE_URL/nfs-exporter.sh prometheus/alertmanager
   chown 1000:1000 $nfsdir
-  echo "$nfsdir created"
   echo "[Step 3/4] Successfully completed"
 else
   echo "[Step 3/4] failed: $nfsdir already exists"
@@ -36,11 +33,11 @@ else
 fi
 
 # create pv,pvc
-echo "[Step 4/4] Task [Create PV,PVC for grafana]"
-pvc=$(kubectl get pvc grafana -o jsonpath={.metadata.name} 2> /dev/null)
+echo "[Step 4/4] Task [Create PV,PVC for alertmanager]"
+pvc=$(kubectl get pvc prometheus-alertmanager -o jsonpath={.metadata.name} 2> /dev/null)
 if [ "$pvc" == "" ]; then
-  kubectl apply -f $BASE_DIR/grafana-volume.yaml
+  kubectl apply -f $BASE_URL/prometheus-alertmanager-volume.yaml
   echo "[Step 4/4] Successfully completed"
 else
-  echo "[Step 4/4] failed: grafana pv,pvc already exist"
+  echo "[Step 4/4] failed: prometheus-alertmanager pv,pvc already exist"
 fi
