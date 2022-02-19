@@ -2,6 +2,7 @@
 BASE_URL=~/Servers/jeus-k8sInfra/prometheus/alert
 nfsdir=/nfs_shared/prometheus/alertmanager
 
+# Change permission
 chmod 777 $BASE_URL/*.sh
 
 # check helm command
