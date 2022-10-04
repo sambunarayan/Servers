@@ -18,6 +18,6 @@ systemctl enable --now kubelet
 # git clone Servers.git 
 if [ $2 = 'Main' ]; then
   git clone https://github.com/sambunarayan/Servers.git
-  mv /home/vagrant/Servers $HOME
-  find $HOME/jeus-k8sInfra/* -regex ".*\.\(sh\)" -exec chmod 700 {} \;
+#  mv /home/vagrant/Servers $HOME
+  find Servers/jeus-k8sInfra/* -regex ".*\.\(sh\)" -exec chmod 700 {} \;
 fi
